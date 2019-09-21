@@ -3,7 +3,7 @@
     By: Pietro Jomini
 */
 
-#include "CSV.h"
+#include "./../../../../CSV_parser_c/CSV.h"
 
 /*
     The lib allow you to store each row in a struct defined 
@@ -33,14 +33,19 @@ typedef struct _mystruct {
     the start of the struct and a tokenized string.
 
     Tokens are indexed in the order that they have in the file.
+
+    Each tokenized line is cleaned after passing her to the function, 
+    hence the function should store clean data and not pointer, example:
+    BAD: ((mystruct*)ptr)->name = line.tokens[1];
+    GOOD: ((mystruct*)ptr)->name = strdup(line.tokens[1]);
 */
 void my_tokens_to_struct (void *ptr, CSV_tokenized_line line) {
     ((mystruct*)ptr)->rank = atoi(line.tokens[0]);
-    ((mystruct*)ptr)->name = line.tokens[1];
-    ((mystruct*)ptr)->platform = line.tokens[2];
+    ((mystruct*)ptr)->name = strdup(line.tokens[1]);
+    ((mystruct*)ptr)->platform = strdup(line.tokens[2]);
     ((mystruct*)ptr)->year = atoi(line.tokens[3]);
-    ((mystruct*)ptr)->genre = line.tokens[4];
-    ((mystruct*)ptr)->publisher = line.tokens[5];
+    ((mystruct*)ptr)->genre = strdup(line.tokens[4]);
+    ((mystruct*)ptr)->publisher = strdup(line.tokens[5]);
     ((mystruct*)ptr)->NA_Sales = atof(line.tokens[6]);
     ((mystruct*)ptr)->EU_Sales = atof(line.tokens[7]);
     ((mystruct*)ptr)->JP_Sales = atof(line.tokens[8]);
@@ -80,7 +85,7 @@ int main() {
     // so from there there will be an error in the correspondence
     // between input and output.
     int rank;
-    printf("Rank? ");
+    printf("Rank to display? ");
     scanf("%d", &rank);
     rank -= 1;
     printf("\t - Rank: %d", parsed_csv[rank].rank);
@@ -95,6 +100,14 @@ int main() {
     printf("\n\t - Other_Sales: %f", parsed_csv[rank].other_sales);
     printf("\n\t - Global_Sales: %f", parsed_csv[rank].global_sales);
     printf("\n");
+
+    // Since strdup allocate memory, we need to free ot
+    for (int i = 0; i < n_items; i++) {
+        free(parsed_csv[i].name);
+        free(parsed_csv[i].publisher);
+        free(parsed_csv[i].platform);
+        free(parsed_csv[i].genre);
+    }
 
     return 0;
 }
