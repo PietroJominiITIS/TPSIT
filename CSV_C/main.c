@@ -35,7 +35,7 @@ typedef struct _mystruct {
     Tokens are indexed in the order that they have in the file.
 
     Each tokenized line is cleaned after passing her to the function, 
-    hence the function should store clean data and not pointer, example:
+    hence the structure should store clean data and not pointer, example:
     BAD: ((mystruct*)ptr)->name = line.tokens[1];
     GOOD: ((mystruct*)ptr)->name = strdup(line.tokens[1]);
 */
