@@ -67,14 +67,14 @@ int main() {
 
     // Get the header.
     // If the header is present in the file,
-    // it must be done, otherwise it would be taken as a line.
+    // it must be done, otherwise it would be took as a line.
     CSV_tokenized_line header = CSV_get_header(csv, separator, max_lines_lenght, max_rows);
 
     // Parse the CSV in an array of structure
-    // the parser return the number of effective elements int the array.
+    // the parser return the number of effective elements in the array.
     // The lenght of the array must be the same as the max_rows parameter of the CSV_parse function.
     mystruct parsed_csv[max_lines];
-    unsigned int n_items = CSV_parse (csv, parsed_csv, sizeof(mystruct), separator, max_lines, max_rows, max_lines_lenght, my_tokens_to_struct);
+    unsigned int n_items = CSV_parse(csv, parsed_csv, sizeof(mystruct), separator, max_lines, max_rows, max_lines_lenght, my_tokens_to_struct);
 
     // Since we don't need him anymore, 
     // the csv file is being closed.
