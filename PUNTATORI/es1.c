@@ -8,8 +8,7 @@ int main() {
 
     for (int k = 0; k < n; k += 1) scanf("%d", arr + k);
 
-    for (int k = 0; k < n; k += 1, arr += 1) 
-        printf("%p -> %d\n", arr, *(arr));
+    for (int k = 0; k < n; k += 1, arr += 1) printf("%p -> %d\n", arr, *(arr));
 
     return 0;
 }

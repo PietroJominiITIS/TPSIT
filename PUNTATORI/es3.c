@@ -4,12 +4,11 @@
 int main() {
 
     char *str = "Hello World!";
-    size_t len = 0;
+    char *len = str;
 
-    while(*str) {
-        str += 1;
-        len += 1;
-    }
+    while(*++len) {}
+
+    len = (int) (len - str);
 
     printf("Lenght: %d\n", len);
 
