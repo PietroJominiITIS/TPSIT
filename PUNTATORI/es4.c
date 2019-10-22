@@ -15,6 +15,6 @@ int main() {
     (emps + 1)->id = 2;
     (emps + 2)->id = 3;
 
-    for (int k = 0; k < n; k += 1) printf("%p -> %d\n", emps + k, (emps + k)->id);
+    for (unsigned int k = 0; k < n; k += 1) printf("%p -> %d\n", emps + k, (emps + k)->id);
     return 0;
 }
