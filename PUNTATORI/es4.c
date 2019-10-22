@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-typedef union _emp {
+typedef struct _emp {
     int id;
 } emp;
 
