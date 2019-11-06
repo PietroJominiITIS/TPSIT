@@ -11,10 +11,7 @@ void stampaLista(struct El *node) {
     else { printf("%d -> ", node->valore); return stampaLista(node->next); }
 }
 
-int len1(struct El *lista) {
-    if (lista == NULL) return 0;
-    else return 1 + len1(lista->next);
-}
+int len1(struct El *lista) { return (lista == NULL) ? 0 : 1 + len1(lista->next); }
 
 int len2(struct El *lista) {
     int len = 0;
