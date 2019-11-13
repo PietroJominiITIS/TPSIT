@@ -72,11 +72,18 @@ struct El *merge(struct El *a, struct El *b) {
         a = a-> next;
     }
     while(b != NULL) {
-        p->next = (struct El *) malloc(sizeof(struct El));
-        p = p->next;
-        p->valore = b->valore;
-        p->next = NULL;
-        b = b-> next;
+        if (p == NULL) {
+            res = (struct El *) malloc(sizeof(struct El));
+            res->valore = b->valore;
+            res->next = NULL;
+            p = res;
+        } else {
+            p->next = (struct El *) malloc(sizeof(struct El));
+            p = p->next;
+            p->valore = b->valore;
+            p->next = NULL;
+            b = b-> next;
+        }
     }
     ordinaLista(res);
     return res;
