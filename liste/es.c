@@ -22,6 +22,66 @@ int len2(struct El *lista) {
     return len;
 }
 
+// es4
+void deallocaLista(struct El *lista) {
+    struct El *lp;
+    while(lista != NULL) {
+        lp = lista->next;
+        free(lista);
+    }
+}
+
+// es5
+// selection sort
+void ordinaLista(struct El *lista) {
+    struct El *head = lista;
+    while (lista != NULL) {
+        struct El *min = lista;
+        struct El *l = lista->next;
+        while (l != NULL) {
+            if (min->valore > l->valore) {
+                min = l;
+            }
+            l = l->next;
+        }
+        int t = lista->valore;
+        lista->valore = min->valore;
+        min->valore = t;
+
+        lista = lista->next;
+    }
+}
+
+// es6
+struct El *merge(struct El *a, struct El *b) {
+    struct El *res = NULL;
+    struct El *p = NULL;
+    while(a != NULL) {
+        if (p == NULL) {
+            res = (struct El *) malloc(sizeof(struct El));
+            res->valore = a->valore;
+            res->next = NULL;
+            p = res;
+        }
+        else {
+            p->next = (struct El *) malloc(sizeof(struct El));
+            p = p->next;
+            p->valore = a->valore;
+            p->next = NULL;
+        }
+        a = a-> next;
+    }
+    while(b != NULL) {
+        p->next = (struct El *) malloc(sizeof(struct El));
+        p = p->next;
+        p->valore = b->valore;
+        p->next = NULL;
+        b = b-> next;
+    }
+    ordinaLista(res);
+    return res;
+}
+
 int main() {
     int n;
     struct El *lista;
@@ -43,13 +103,35 @@ int main() {
         }
     } while (n != -1);
 
+    int n1;
+    struct El *lista1;
+    struct El *l1;
+    lista1 = NULL; // Al momento non abibamo elementi nella lista
+    do {
+        printf("Iserisci un numero naturale o -1 per terminare: ");
+        scanf("%d", &n1);
+        if(n1 > 0) {
+            if (lista1 == NULL) { // Se è stato inserito il primo elemento
+                lista1 = (struct El *) malloc(sizeof(struct El));
+                l1 = lista1;
+            } else { // Altrimenti appendiamo un nodo alla lista
+                l1->next = (struct El *) malloc(sizeof(struct El));
+                l1 = l1->next;
+            }
+            l1->valore = n1; // Si assegna il valore inserito
+            l1->next = NULL; // Si termina la sequenza di nodi
+        }
+    } while (n1 != -1);
+
     /* l = lista; //
     printf("Numeri inseriti: \n");
     while( l != NULL) {
         printf("%d -> %p\n", l->valore, l->next);
         l = l->next; // Si cicla nella lista, otenendo il nodo puntato dal valore corrente
     } */
-    stampaLista(lista);
-    printf("\nLung -> %d :: %d\n", len1(lista), len2(lista));
+    ordinaLista(lista);
+    ordinaLista(lista1);
+    struct El *mres = merge(lista, lista1);
+    stampaLista(mres);
     return 0;
 }
