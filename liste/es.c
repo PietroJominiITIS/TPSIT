@@ -89,6 +89,40 @@ struct El *merge(struct El *a, struct El *b) {
     return res;
 }
 
+// es6v2
+struct El *mergev2(struct El *a, struct El *b) {
+    struct El *res = NULL;
+    struct El *head = NULL;
+    while (a != NULL || b != NULL) {
+        int v;
+        if (a == NULL) {
+            v = b->valore;
+            b = b->next;
+        } else if (b == NULL) {
+            v = a->valore;
+            a = a->next;
+        } else {
+            if (a->valore > b->valore) {
+                v = b->valore;
+                b = b->next;
+            } else {
+                v = a->valore;
+                a = a->next;
+            }
+        }
+        if (res == NULL) {
+            res = (struct El *) malloc(sizeof(struct El));
+            head = res;
+            res->valore = v;
+        } else {
+            res->next = (struct El *) malloc(sizeof(struct El));
+            res = res->next;
+            res->valore = v;
+        }
+    }
+    return head;
+}
+
 int main() {
     int n;
     struct El *lista;
@@ -138,7 +172,7 @@ int main() {
     } */
     ordinaLista(lista);
     ordinaLista(lista1);
-    struct El *mres = merge(lista, lista1);
+    struct El *mres = mergev2(lista, lista1);
     stampaLista(mres);
     return 0;
 }
