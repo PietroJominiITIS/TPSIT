@@ -19,8 +19,8 @@ pthread_mutex_t a = PTHREAD_MUTEX_INITIALIZER, // desk A
 void buy(void *desk) {
 
 	// lock current desk & decrease remaining clients counter
-	if (desk) { pthread_mutex_lock(&a); rca -= 1; }
-	else      { pthread_mutex_lock(&b); rcb -= 1; }
+	if (desk) { pthread_mutex_lock(&b); rcb -= 1; }
+	else      { pthread_mutex_lock(&a); rca -= 1; }
 
 	// handle tickets remotions
 	int ntb = rand() % 5 + 1, entb;
