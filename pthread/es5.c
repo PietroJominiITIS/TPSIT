@@ -5,7 +5,7 @@
 #define NCA 5 // number of clients at desk A
 #define NCB 5 // number of clients at desk B
 
-int nt = 30,	  // number of tickets available
+int nt = 30,    // number of tickets available
     rca = NCA, 	// remaining clients at desk A
     rcb = NCB;  // remaining clients at desk B
 
@@ -24,9 +24,9 @@ void buy(void *desk) {
 
 	// handle tickets remotions
 	int ntb = rand() % 5 + 1, entb;
-	if (nt == 0) entb = 0;
+	if      (nt == 0)   { entb = 0;              }
 	else if (ntb <= nt) { nt -= ntb; entb = ntb; }
-	else { entb = nt; nt = 0; }
+	else                { entb = nt; nt = 0;     }
 
 	// some fancy output
 	printf("Thread: %u\n", pthread_self(), desk, ntb, entb);
@@ -53,7 +53,7 @@ int main() {
 	srand(time(NULL)); // rand seed with current time
 
 	// arrays of client threads
-	pthread_t *da = (pthread_t *) malloc(sizeof(pthread_t) * NCA), // desk A
+	pthread_t *da = (pthread_t *) malloc(sizeof(pthread_t) * NCA), // desk
             *db = (pthread_t *) malloc(sizeof(pthread_t) * NCB); // desk B
 
 	// random choice of starting desk
